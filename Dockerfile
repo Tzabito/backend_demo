@@ -1,14 +1,19 @@
-# Usa una imagen base de Java
-FROM openjdk:17-jdk-alpine
+# Usa una imagen base de Maven para construir la aplicación
+FROM maven:3.8.4-openjdk-11 AS build
 
-# Define el directorio de trabajo
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo JAR de tu aplicación al contenedor
-COPY target/greentools-web-service.jar greentools-web-service.jar
+# Copia el archivo pom.xml y descarga las dependencias
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package
 
-# Expone el puerto en el que tu aplicación escucha
-EXPOSE 8080
+# Usa una imagen base de JDK para ejecutar la aplicación
+FROM openjdk:11-jre-slim
 
-# Comando para ejecutar la aplicación
-CMD ["java", "-jar", "greentools-web-service.jar"]
+# Copia el archivo JAR de la etapa de construcción
+COPY --from=build /app/target/*.jar app.jar
+
+# Especifica el comando para ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "/app.jar"]

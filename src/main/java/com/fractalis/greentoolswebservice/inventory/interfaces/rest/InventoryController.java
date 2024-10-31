@@ -29,20 +29,20 @@ public class InventoryController {
         this.userQueryService = userQueryService;
     }
 
-    @GetMapping("/clients")
+    @GetMapping("/stations")
     public ResponseEntity<List<Inventory>> getAllInventories() {
         List<Inventory> inventories = inventoryQueryService.getAllInventories();
         return new ResponseEntity<>(inventories, HttpStatus.OK);
     }
 
-    @GetMapping("/client/{id}")
+    @GetMapping("/station/{id}")
     public ResponseEntity<Inventory> getInventoryById(@PathVariable Long id) {
         Optional<Inventory> inventory = inventoryQueryService.getInventoryById(id);
         return inventory.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/client")
+    @PostMapping("/station")
     public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventoryRequest, @RequestParam Long userId) {
         Optional<User> user = userQueryService.getUserById(userId);
         if (user.isPresent()) {
@@ -61,7 +61,7 @@ public class InventoryController {
     }
 
     // PUT: Actualizar un inventario existente
-    @PutMapping("/client/{id}")
+    @PutMapping("/station/{id}")
     public ResponseEntity<Void> updateInventory(@PathVariable Long id,
                                                 @RequestParam String plant,
                                                 @RequestParam Double temperature,
@@ -77,7 +77,7 @@ public class InventoryController {
     }
 
     // DELETE: Eliminar un inventario por su ID
-    @DeleteMapping("/client/{id}")
+    @DeleteMapping("/station/{id}")
     public ResponseEntity<Void> deleteInventory(@PathVariable Long id) {
         try {
             inventoryCommandService.deleteInventory(id);

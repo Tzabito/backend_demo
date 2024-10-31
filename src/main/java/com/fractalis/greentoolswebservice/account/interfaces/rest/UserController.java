@@ -48,7 +48,7 @@ public class UserController {
                 userRequest.getAddress().number(),
                 userRequest.getAddress().city(),
                 userRequest.getAddress().zipCode(),
-                userRequest.getAddress().country()
+                userRequest.getAddress().country()6
         );
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

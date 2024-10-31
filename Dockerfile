@@ -1,5 +1,5 @@
 # Etapa de construcción
-FROM maven:3.9.0-openjdk-21 AS build
+FROM maven:3.9.0-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src

@@ -3,13 +3,10 @@ package com.fractalis.greentoolswebservice.account.domain.model.aggregates;
 import com.fractalis.greentoolswebservice.account.domain.model.valueobjects.EmailAddress;
 import com.fractalis.greentoolswebservice.account.domain.model.valueobjects.PersonName;
 import com.fractalis.greentoolswebservice.account.domain.model.valueobjects.StreetAddress;
-import com.fractalis.greentoolswebservice.inventory.domain.model.aggregates.Inventory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
